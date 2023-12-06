@@ -41,7 +41,7 @@ const Second = () => {
     <div className={secondCss.second_body}>
       <div>
         <button className='button-style_one' onClick={increaseCountButton}>+</button>
-        <p style={{fontSize:12+count}}>Count: 0</p>
+        <p style={{fontSize:12+count}}>Count: {count}</p>
       </div>
 
       <input type="text" className='input_box' onChange={onChnageInputVal} value={inputVal}/>
