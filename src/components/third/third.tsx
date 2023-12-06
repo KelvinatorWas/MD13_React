@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ReactElement, createElement, useRef, useState } from 'react';
 import thirdCss from './third.module.css';
 
 
@@ -9,7 +9,7 @@ const Third = () => {
 
   // Div Clone Ref & clonedArr State
   const cloneRectRef = useRef<HTMLDivElement | null>(null);
-  const [clonedDivArr, setClonedDivArr] = useState<HTMLDivElement[]>([]);
+  const [clonedDivArr, setClonedDivArr] = useState<ReactElement[]>([]);
 
   // Div Move To Corner Ref & inner Div Text State
   const divMoveToCornerRef = useRef<HTMLDivElement | null>(null);
@@ -20,9 +20,11 @@ const Third = () => {
   };
 
   const cloneDivOnClickButton = () => {
-    const cloneDiv = cloneRectRef.current?.cloneNode(true) as HTMLDivElement;
-
-    if (cloneDiv) setClonedDivArr((prevClones) => [...prevClones, cloneDiv]);
+    
+    if (cloneRectRef.current !== null) {
+      const clone = createElement('div', { ...cloneRectRef.current.attributes, className: cloneRectRef.current.className, key: Math.random()})
+      if (clone) setClonedDivArr((prevClones) => [...prevClones, clone]);
+    }
   };
 
   const divMoveToCornerButtonCick = () => {
@@ -43,9 +45,7 @@ const Third = () => {
       <div className={thirdCss.clone_div_wrapper}>
         <div className={thirdCss.div_rect} ref={cloneRectRef}></div>
         {
-          clonedDivArr.map((_, index) =>
-            <div className={thirdCss.div_rect} key={index}></div>
-          )
+          clonedDivArr.map((clone) => clone)
         }
       </div>
 
